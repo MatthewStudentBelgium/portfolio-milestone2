@@ -187,4 +187,17 @@
   body {
     overflow-x: hidden;
   }
+  
+}
+.nav__list.show {
+  display: flex !important;
+  background: yellow !important;
+  color: black !important;
+  position: fixed !important;
+  top: 60px !important;
+  left: 0;
+  right: 0;
+  height: auto;
+  flex-direction: column;
+  z-index: 999999 !important;
 }
