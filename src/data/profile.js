@@ -6,7 +6,7 @@ export const profile = {
   email: "mcrmatthewroberts@gmail.com",
   phone: "+27 66 458 4065",
   github: "https://github.com/MatthewStudentBelgium",
-  linkedin: "https://linkedin.com/in/matthew-roberts",
+  linkedin: "https://www.linkedin.com/in/matthew-roberts-72671a140/",
   website: "https://matthewroberts.dev",
 
 };
