@@ -1,4 +1,93 @@
-/* 🌐 MOBILE VIEW (Refined Design) */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 9999;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.nav__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  position: relative;
+  font-size: 14px;
+  color: #374151;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.25s ease;
+  padding-bottom: 4px;
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background-color: #1d4ed8;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+.nav__link.active {
+  color: #1d4ed8;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.nav__link.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* =========================
+   💻 DESKTOP VIEW
+========================= */
+@media (min-width: 701px) {
+  .menu__toggle {
+    display: none;
+  }
+
+  .nav__list {
+    flex-direction: row;
+    background: transparent;
+  }
+
+  .nav__link {
+    background: none;
+    border: none;
+  }
+}
+
+/* =========================
+   📱 MOBILE VIEW (Refined)
+========================= */
 @media (max-width: 700px) {
   .menu__toggle {
     display: flex;
@@ -42,7 +131,6 @@
     transform: rotate(-45deg) translate(4px, -4px);
   }
 
-  /* 🩵 Dropdown menu */
   .nav__list {
     position: absolute;
     top: 55px;
@@ -57,6 +145,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     animation: slideDown 0.3s ease forwards;
     z-index: 9999;
+    list-style: none;
   }
 
   .nav__link {
@@ -66,6 +155,8 @@
     padding: 6px 10px;
     text-align: center;
     width: 100%;
+    border: none;
+    background: none;
     transition: all 0.2s ease;
   }
 
@@ -84,5 +175,9 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  body {
+    overflow-x: hidden;
   }
 }
