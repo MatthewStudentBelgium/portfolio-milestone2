@@ -7,7 +7,7 @@ export default function HeaderNav() {
   const [activeSection, setActiveSection] = useState("about");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Smooth scroll to section
+  // Scroll into section when clicked
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -16,7 +16,7 @@ export default function HeaderNav() {
     }
   };
 
-  // Highlight section in view
+  // Detect section in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -26,57 +26,54 @@ export default function HeaderNav() {
       },
       { threshold: 0.3 }
     );
+
     sections.forEach((id) => {
       const section = document.getElementById(id);
       if (section) observer.observe(section);
     });
-    return () => observer.disconnect();
-  }, []);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest(".navbar")) setMenuOpen(false);
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <nav className="navbar">
       <div className="nav__container">
-        {/* Hamburger button (only visible on mobile via CSS) */}
+        {/* Hamburger Menu Button */}
         <button
           className="menu__toggle"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
-          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
-          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
-          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
         </button>
 
-        {/* Always render nav list, visibility handled by CSS */}
+        {/* Navigation Links */}
         <AnimatePresence>
-          <motion.ul
-            className={`nav__list ${menuOpen ? "show" : ""}`}
-            role="list"
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-          >
-            {sections.map((id) => (
-              <li key={id}>
-                <button
-                  onClick={() => scrollToSection(id)}
-                  className={`nav__link ${activeSection === id ? "active" : ""}`}
-                >
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
-                </button>
-              </li>
-            ))}
-          </motion.ul>
+          {(menuOpen || window.innerWidth > 700) && (
+            <motion.ul
+              key="nav-menu"
+              className={`nav__list ${menuOpen ? "show" : ""}`}
+              role="list"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              {sections.map((id) => (
+                <li key={id}>
+                  <button
+                    onClick={() => scrollToSection(id)}
+                    className={`nav__link ${
+                      activeSection === id ? "active" : ""
+                    }`}
+                  >
+                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                  </button>
+                </li>
+              ))}
+            </motion.ul>
+          )}
         </AnimatePresence>
       </div>
     </nav>
