@@ -1,63 +1,79 @@
+// src/components/HeaderNav.jsx
 import { useEffect, useState } from "react";
 import "./HeaderNav.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeaderNav() {
-  const sections = ["about",  "education", "experience", "skills", "projects", "hobbies"];
+  const sections = ["about", "experience", "skills", "projects", "hobbies"];
   const [activeSection, setActiveSection] = useState("about");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // scroll into view
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(id);
+      setMenuOpen(false);
     }
   };
 
+  // section highlight on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible) setActiveSection(visible.target.id);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
       },
-      {
-        threshold: [0.25, 0.5, 0.75],
-        rootMargin: "-70px 0px -40% 0px",
-      }
+      { threshold: 0.3 }
     );
+
     sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
     });
 
-    const handleScroll = () => {
-      if (window.scrollY < 100) setActiveSection("about");
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10)
-        setActiveSection("hobbies");
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <nav className="navbar">
-      <ul className="nav__list" role="list">
-        {sections.map((id) => (
-          <li key={id}>
-            <button
-              onClick={() => scrollToSection(id)}
-              className={`nav__link ${activeSection === id ? "active" : ""}`}
+      <div className="nav__container">
+        <button
+          className="menu__toggle"
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-label="Toggle menu"
+        >
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+        </button>
+
+        <AnimatePresence>
+          {(menuOpen || window.innerWidth > 700) && (
+            <motion.ul
+              className="nav__list"
+              role="list"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
             >
-              {id.charAt(0).toUpperCase() + id.slice(1)}
-            </button>
-          </li>
-        ))}
-      </ul>
+              {sections.map((id) => (
+                <li key={id}>
+                  <button
+                    onClick={() => scrollToSection(id)}
+                    className={`nav__link ${
+                      activeSection === id ? "active" : ""
+                    }`}
+                  >
+                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                  </button>
+                </li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
     </nav>
   );
 }

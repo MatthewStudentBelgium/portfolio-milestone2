@@ -1,77 +1,85 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(4px);
-  border-bottom: 1px solid #e5e7eb;
-  z-index: 9999;
-  padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  overflow-x: hidden; /* prevent horizontal scroll */
-  box-sizing: border-box;
-}
-
-.nav__list {
+/* Container */
+.nav__container {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0 10px;
-  flex-wrap: wrap; /* ✅ allow wrapping on smaller screens */
+  align-items: center;
+  position: relative;
 }
 
-.nav__link {
-  position: relative;
-  font-size: 14px;
-  color: #374151;
+/* Hamburger toggle */
+.menu__toggle {
+  position: absolute;
+  right: 20px;
+  top: 6px;
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 500;
-  transition: color 0.25s ease;
-  padding-bottom: 4px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 10000;
 }
 
-/* underline animation */
-.nav__link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
+.bar {
+  width: 24px;
+  height: 3px;
   background-color: #1d4ed8;
-  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-.nav__link:hover::after {
-  width: 100%;
+/* Animate burger into X */
+.bar.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
-.nav__link.active {
-  color: #1d4ed8;
-  transition: color 0.4s ease, border-color 0.4s ease;
+.bar.open:nth-child(2) {
+  opacity: 0;
 }
 
-.nav__link.active::after {
-  width: 100%;
-  left: 0;
+.bar.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* 📱 Mobile Fix */
-@media (max-width: 650px) {
+/* Desktop view */
+@media (min-width: 701px) {
+  .menu__toggle {
+    display: none;
+  }
+
   .nav__list {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: transparent;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 700px) {
+  .menu__toggle {
+    display: flex;
+  }
+
+  .nav__list {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    background-color: white;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding-bottom: 8px;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
   }
 
   .nav__link {
-    font-size: 15px;
-    padding: 6px 10px;
+    font-size: 16px;
+    padding: 8px 16px;
     width: 100%;
     text-align: center;
   }
