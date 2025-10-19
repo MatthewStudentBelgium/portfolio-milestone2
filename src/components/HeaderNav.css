@@ -2,18 +2,18 @@
   position: fixed;
   top: 0;
   width: 100%;
+  height: 60px;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(4px);
   border-bottom: 1px solid #e5e7eb;
   z-index: 9999;
-  height: 60px; /* ✅ increase navbar height */
   display: flex;
-  align-items: center; /* ✅ center contents vertically */
+  align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  overflow-x: hidden;
   box-sizing: border-box;
   padding: 0 10px;
+  overflow-x: hidden;
 }
 
 .nav__container {
@@ -23,17 +23,7 @@
   position: relative;
 }
 
-/* Default nav list (desktop) */
-.nav__list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
+/* Shared nav link styles */
 .nav__link {
   position: relative;
   font-size: 14px;
@@ -63,7 +53,6 @@
 
 .nav__link.active {
   color: #1d4ed8;
-  transition: color 0.4s ease, border-color 0.4s ease;
 }
 
 .nav__link.active::after {
@@ -80,13 +69,14 @@
   }
 
   .nav__list {
-    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     background: transparent;
-  }
-
-  .nav__link {
-    background: none;
-    border: none;
   }
 }
 
@@ -94,6 +84,7 @@
    📱 MOBILE VIEW
 ========================= */
 @media (max-width: 700px) {
+  /* Hamburger button */
   .menu__toggle {
     display: flex;
     flex-direction: column;
@@ -111,7 +102,7 @@
     backdrop-filter: blur(6px);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    z-index: 10001; /* ensure it stays above the menu */
+    z-index: 10001;
     transition: all 0.3s ease;
   }
 
@@ -137,10 +128,11 @@
     transform: rotate(-45deg) translate(4px, -4px);
   }
 
-  /* 🔥 Fixed Dropdown Drawer Menu */
+  /* Drawer menu (hidden by default) */
   .nav__list {
+    display: none;
     position: fixed;
-    top: 60px; /* directly below navbar */
+    top: 60px;
     left: 0;
     right: 0;
     background-color: #ffffff;
@@ -154,10 +146,11 @@
     transform: translateY(-10px);
     pointer-events: none;
     transition: all 0.3s ease;
-    z-index: 10000; /* directly beneath toggle button */
+    z-index: 10000;
   }
 
   .nav__list.show {
+    display: flex;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -172,7 +165,6 @@
     width: 100%;
     border: none;
     background: none;
-    transition: all 0.2s ease;
   }
 
   .nav__link:hover {
@@ -180,7 +172,6 @@
     background-color: #f3f4f6;
     border-radius: 6px;
   }
-}
 
   @keyframes slideDown {
     from {
@@ -196,3 +187,4 @@
   body {
     overflow-x: hidden;
   }
+}
