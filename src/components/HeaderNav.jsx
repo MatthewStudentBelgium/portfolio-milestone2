@@ -17,7 +17,7 @@ export default function HeaderNav() {
     }
   };
 
-  // section highlight on scroll
+  // highlight section on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -36,35 +36,45 @@ export default function HeaderNav() {
     return () => observer.disconnect();
   }, []);
 
+  // close menu when clicking outside (optional)
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".navbar")) setMenuOpen(false);
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="nav__container">
+        {/* Hamburger button */}
         <button
           className="menu__toggle"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
-          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
-          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
-          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
         </button>
 
+        {/* Animated menu */}
         <AnimatePresence>
-          {(menuOpen || window.innerWidth > 700) && (
+          {(menuOpen || window.matchMedia("(min-width: 701px)").matches) && (
             <motion.ul
-              className="nav__list"
+              className={`nav__list ${menuOpen ? "show" : "hide"}`}
               role="list"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
             >
               {sections.map((id) => (
                 <li key={id}>
                   <button
                     onClick={() => scrollToSection(id)}
-                    className={`nav__link ${
-                      activeSection === id ? "active" : ""
-                    }`}
+                    className={`nav__link ${activeSection === id ? "active" : ""}`}
                   >
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
