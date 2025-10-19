@@ -184,3 +184,10 @@
     overflow-x: hidden;
   }
 }
+.nav__list.hide {
+  display: none;
+}
+
+.nav__list.show {
+  display: flex;
+}
