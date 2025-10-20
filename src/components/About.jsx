@@ -1,4 +1,3 @@
-// src/components/About.jsx
 import "./About.css";
 import { about } from "../data/about.js";
 import { motion } from "framer-motion";

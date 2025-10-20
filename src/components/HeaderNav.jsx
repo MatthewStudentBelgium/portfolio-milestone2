@@ -5,7 +5,6 @@ export default function HeaderNav() {
   const sections = ["about", "experience", "skills", "projects", "hobbies"];
   const [activeSection, setActiveSection] = useState("about");
 
-  // Scroll to section
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -13,7 +12,6 @@ export default function HeaderNav() {
     }
   };
 
-  // Highlight section in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

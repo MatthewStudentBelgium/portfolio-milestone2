@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { cardFade } from "../utils/motionSettings";
 
 export default function Education() {
-  // function to map icon keys to components
   const renderIcon = (name) => {
     switch (name) {
       case "award":
