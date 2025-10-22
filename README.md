@@ -41,45 +41,26 @@ The portfolio showcases my professional profile, education, experience, skills, 
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/<your-username>/Roberts_Matthew_602688_Milestone_2.git
-   cd Roberts_Matthew_602688_Milestone_2
-   ```
-
-2. **Install dependencies**
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Run locally**
+2. **Run locally**
    ```bash
    npm run dev
    ```
    Then open the app at **http://localhost:5173**
 
-4. **Build for production**
+3. **Build for production**
    ```bash
    npm run build
    ```
 
-5. **Preview the production build (optional)**
+4. **Preview the production build (optional)**
    ```bash
    npm run preview
    ```
-
----
-
-## 🚀 Deployment (Netlify)
-
-1. Push the project to GitHub (exclude `node_modules`).
-2. On Netlify → **New site from Git**.
-3. Choose your repo and set:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `dist`
-4. Deploy and copy the public URL.
-
----
 
 ## 📋 Project Requirements Mapping
 
@@ -100,10 +81,3 @@ The portfolio showcases my professional profile, education, experience, skills, 
 Student ID: 602688  
 Diploma in Information Technology  
 Belgium Campus ITversity
-
----
-
-## 🏁 Status
-
-✅ Milestone 2 complete and ready for deployment  
-Next stage: Milestone 3 (Deployment & Submission)
